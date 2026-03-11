@@ -96,6 +96,8 @@ app.post('/api/book', async (req, res) => {
     }
 
     // 3. Save booking to MongoDB
+    console.log("backend: saving to mongoDB...");
+    console.time("MongoDB Save");
     let meetLink = "https://meet.google.com/rbd-jnpe-ufp"; // Fallback
     const newBooking = new Booking({
       ...validatedData,
@@ -104,26 +106,24 @@ app.post('/api/book', async (req, res) => {
     });
     
     await newBooking.save();
+    console.timeEnd("MongoDB Save");
     // 4. Format Date for Email
     const meetingDate = new Date(validatedData.date);
     const dateString = meetingDate.toLocaleDateString('en-GB', { 
        day: 'numeric', month: 'long', year: 'numeric' 
     });
 
-    // 5. Send Confirmation Email
-    try {
-      await sendConfirmationEmail({
-        firstName: validatedData.firstName,
-        email: validatedData.email,
-        dateString,
-        time: validatedData.time,
-        timezoneLabel: validatedData.timezoneLabel,
-        meetLink
-      });
-    } catch (emailError) {
-      console.error("Failed to send email confirmation:", emailError);
-      // We log but don't fail the whole booking process if email fails
-    }
+    // 5. Send Confirmation Email (Async - don't await so we don't block the API response)
+    sendConfirmationEmail({
+      firstName: validatedData.firstName,
+      email: validatedData.email,
+      dateString,
+      time: validatedData.time,
+      timezoneLabel: validatedData.timezoneLabel,
+      meetLink
+    }).catch(emailError => {
+      console.error("Failed to send email confirmation in background:", emailError);
+    });
 
     // 5. Respond
     res.status(201).json({
