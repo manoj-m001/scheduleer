@@ -29,6 +29,7 @@ function App() {
   };
 
   const handleBookingSubmit = async (data) => {
+    console.log("frontend: handleBookingSubmit triggered");
     setIsLoading(true);
     setSubmitError(null);
     
@@ -46,7 +47,11 @@ function App() {
 
     try {
       // Send to our backend
+      console.log("frontend: starting axios POST request...");
+      console.time("Booking API Call");
       const response = await axios.post('http://localhost:5000/api/book', payload);
+      console.timeEnd("Booking API Call");
+      console.log("frontend: API request finished, updating state...");
       
       setBookingDetails({
          ...payload,
@@ -55,16 +60,16 @@ function App() {
       });
       setStage(STAGES.CONFIRMATION);
     } catch (error) {
+      console.timeEnd("Booking API Call");
       console.error("Booking error:", error);
       if (error.response && error.response.status === 409) {
          setSubmitError("Oops! This time slot was just booked by someone else. Please select another time.");
-         // Optionally you could kick them back to select another time, but better to let them see the error first
-         // and then manually go back via the Back button
       } else {
          setSubmitError("An error occurred while booking. Please try again or check your connection.");
       }
     } finally {
       setIsLoading(false);
+      console.log("frontend: isLoading set to false");
     }
   };
 
