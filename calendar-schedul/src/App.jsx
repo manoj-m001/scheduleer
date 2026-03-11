@@ -16,6 +16,7 @@ function App() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookingDetails, setBookingDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -29,6 +30,7 @@ function App() {
 
   const handleBookingSubmit = async (data) => {
     setIsLoading(true);
+    setSubmitError(null);
     
     const timezoneObj = TIMEZONES.find(tz => tz.value === selectedTimezone) || TIMEZONES[1];
 
@@ -55,11 +57,11 @@ function App() {
     } catch (error) {
       console.error("Booking error:", error);
       if (error.response && error.response.status === 409) {
-         alert("Oops! This time slot was just booked by someone else. Please select another time.");
-         setStage(STAGES.CALENDAR); // Kick them back to select another time
-         setSelectedTime(null);
+         setSubmitError("Oops! This time slot was just booked by someone else. Please select another time.");
+         // Optionally you could kick them back to select another time, but better to let them see the error first
+         // and then manually go back via the Back button
       } else {
-         alert("An error occurred while booking. Please try again.");
+         setSubmitError("An error occurred while booking. Please try again or check your connection.");
       }
     } finally {
       setIsLoading(false);
@@ -122,6 +124,7 @@ function App() {
             onBack={() => setStage(STAGES.CALENDAR)}
             onSubmit={handleBookingSubmit}
             isLoading={isLoading}
+            submitError={submitError}
           />
         )}
 

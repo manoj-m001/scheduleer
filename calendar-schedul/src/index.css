@@ -1,1 +1,48 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .animate-checkmark {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+
+  /* Slight pop in animation after the check finishes */
+  .animate-success-pop {
+    animation: successPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-fade-up {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.6s ease-out 0.2s forwards;
+  }
+}
+
+@keyframes drawCheck {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes successPop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
