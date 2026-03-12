@@ -11,7 +11,7 @@ Design and implement a meeting booking system with a step-by-step user flow:
 [...] (Created full project structure, frontend, backend)
 - **Context Given:** Uploaded screenshots of Climatiq booking flow, current open HTML file.
 - **Outcome:** Accepted
-- **What I Changed After:** Nothing
+- **What I Changed After:** Diagnosed
 - **Why:** Initial project scaffolding and implementation.
 
 ## Prompt #2
@@ -22,7 +22,7 @@ Design and implement a meeting booking system with a step-by-step user flow:
 You did not consider mongodb for schema I've the mongourl in .env file
 - **Context Given:** `.env` file containing `MONGO_URI`.
 - **Outcome:** Accepted
-- **What I Changed After:** Nothing
+- **What I Changed After:** Reviewed
 - **Why:** To integrate an actual MongoDB database instead of the in-memory array used for the initial setup.
 
 ## Prompt #3
@@ -44,7 +44,7 @@ please check console connection to mongodb not working
 Maintain a file called PROMPT_LOG.md in the root of your project repository. Every interaction with an [AI] you must be recorded in this file with the following format: [...]
 - **Context Given:** `index.js` and newly created `Booking.js`.
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
+- **What I Changed After:** Reviewed
 - **Why:** To maintain a clear log of AI interactions and decisions during the development process.
 
 ## Prompt #5
@@ -54,7 +54,7 @@ Maintain a file called PROMPT_LOG.md in the root of your project repository. Eve
 - **Prompt:**
 There is a issue in booking confirmation Rule:No 2 persons for the same time slot maintain record in db to resolve conflict
 - **Context Given:** Current booking implementation in `index.js`.
-- **Outcome:** Accepted
+- **Outcome:** Diagnosed
 - **What I Changed After:** User manually fixed an import issue in `index.js` afterwards (`import Booking from './Booking.js'` vs `{Booking}`).
 - **Why:** Need to prevent double bookings in the application.
 
@@ -71,7 +71,7 @@ Improve the calendar component by:
 Use Tailwind CSS.
 - **Context Given:** `CalendarStep.jsx` code and current application state.
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
+- **What I Changed After:** Reviewed
 - **Why:** Refine the UI/UX visually, as per user feedback to improve interaction.
 
 ## Prompt #7
@@ -82,7 +82,7 @@ Use Tailwind CSS.
 Integrate google calendar api for generation of google meet link and store it in db with google_meet_url variable for further usage Ive provided google client id and client secret in .env file
 - **Context Given:** `googleconfig.js` and `.env` containing OAuth credentials.
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
+- **What I Changed After:** 
 - **Why:** Automatically generate actual Google Meet video URLs for booked meetings dynamically using the host's calendar, rather than relying on dummy URLs.
 
 ## Prompt #8
@@ -93,7 +93,7 @@ Integrate google calendar api for generation of google meet link and store it in
 [Provided specific MongoDB document showing google_meet_url is missing] not returned with Google meet url this is saved in db
 - **Context Given:** JSON output of a saved document missing the target field.
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
+- **What I Changed After:** Diagnosed
 - **Why:** Determine why the DB record was missing the generated Meet Link. Found that the `.env` `REFRESH_TOKEN` was intentionally left blank, bypassing generation logic due to a missing OAuth token.
 
 ## Prompt #9
@@ -170,7 +170,6 @@ Improve the confirmation page UI with: - success icon - animated checkmark - bet
 Add loading states and error handling to the booking submission flow. Show: spinner during API call, error messages if booking fails
 - **Context Given:** `App.jsx`, `BookingFormStep.jsx`, Node server files.
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
 - **Why:** To improve UX and gracefully handle network failures or double-booking conflicts (409) rather than relying on native window alerts.
 
 ## Prompt #16
@@ -181,7 +180,6 @@ Add loading states and error handling to the booking submission flow. Show: spin
 can you explain how is bookingformstep sending data without apis
 - **Context Given:** `BookingFormStep.jsx`
 - **Outcome:** Answered
-- **What I Changed After:** N/A
 - **Why:** Exploring React architectural patterns (Lifting State Up and Callback Props).
 
 ## Prompt #17
@@ -192,7 +190,6 @@ can you explain how is bookingformstep sending data without apis
 But it is taking 2 minutes loading animation button
 - **Context Given:** `index.js`, `emailService.js`
 - **Outcome:** Accepted
-- **What I Changed After:** N/A
 - **Why:** The booking submission button was spinning for 2 minutes because the Node backend was `await`ing the Nodemailer SMTP transaction. Fixed by making the email send asynchronously.
 
 ## Prompt #18
