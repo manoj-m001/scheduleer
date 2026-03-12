@@ -42,7 +42,7 @@ export const bookslot=async (req, res) => {
     });
 
     // 5. Send Confirmation Email (Async - don't await so we don't block the API response)
-    sendConfirmationEmail({
+    await sendConfirmationEmail({
       firstName: validatedData.firstName,
       email: validatedData.email,
       dateString,
