@@ -1,22 +1,13 @@
-import nodemailer from 'nodemailer';
 import 'dotenv/config';
-
-// Create a transporter using credentials from .env
+import { Resend } from 'resend';
 
 /**
  * Send booking confirmation email
  * @param {Object} bookingDetails - Contains all the necessary data for the email
 */
 export const sendConfirmationEmail = async (bookingDetails) => {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // Fix for Vercel IPv6 Block: Must explicitly use 'smtp.gmail.com' 
-    port: 587,              // Secure port
-    secure: false,           // Use SSL/TLS
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
+  
+  const resend = new Resend(process.env.RESEND_API);
   const {
     firstName,
     email,
@@ -54,9 +45,15 @@ export const sendConfirmationEmail = async (bookingDetails) => {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully: %s', info.messageId);
-    return info;
+    const { data, error } = await resend.emails.send(mailOptions);
+    
+    if (error) {
+      console.error('Resend API Error:', error);
+      throw error;
+    }
+
+    console.log('Email sent successfully: %s', data?.id);
+    return data;
   } catch (error) {
     console.error('Error sending email:', error);
     throw error;
