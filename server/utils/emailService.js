@@ -37,7 +37,7 @@ export const sendConfirmationEmail = async (bookingDetails) => {
         <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e5e7eb;">
           <p style="margin: 10px 0;"><strong>Attendee Email:</strong> ${email}</p>
           <p style="margin: 10px 0;"><strong>Meeting Date:</strong> ${dateString}</p>
-          <p style="margin: 10px 0;"><strong>Time:</strong> ${time}</p>
+          <p style="margin: 10px 0;"><strong>Time:</strong> ${time} PM</p>
           <p style="margin: 10px 0;"><strong>Timezone:</strong> ${timezoneLabel}</p>
           <p style="margin: 10px 0;"><strong>Google Meet Link:</strong> <a href="${meetLink}" style="color: #4F46E5; text-decoration: none;"><strong>${meetLink}</strong></a></p>
         </div>
