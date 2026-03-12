@@ -10,8 +10,8 @@ import 'dotenv/config';
 export const sendConfirmationEmail = async (bookingDetails) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', // Fix for Vercel IPv6 Block: Must explicitly use 'smtp.gmail.com' 
-    port: 465,              // Secure port
-    secure: true,           // Use SSL/TLS
+    port: 587,              // Secure port
+    secure: false,           // Use SSL/TLS
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
