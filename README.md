@@ -9,8 +9,8 @@ To run this application on your local machine, you will need to start both the F
 ### Prerequisites
 - [Node.js](https://nodejs.org/) installed
 - A running MongoDB Database (Local or MongoDB Atlas)
-- Google OAuth / Gmail credentials for the email service
-
+- Get you api key from resend platform 
+- refer to .env.example for the .env setup on local machine
 ---
 
 ### 1. Start the Backend (Node.js/Express)
