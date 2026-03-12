@@ -7,7 +7,7 @@ import bookingRoute from './routes/bookingRoute.js';
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({origin:process.env.FRONTEND_URL}));
 app.use(express.json());
 
 // Database connection
