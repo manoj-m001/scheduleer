@@ -3,7 +3,6 @@ import { STAGES } from '../constants';
 
 const ProgressBar = ({ stage }) => {
   const isDetailsOrConfirmation = stage === STAGES.DETAILS || stage === STAGES.CONFIRMATION;
-  
   return (
     <div className="flex flex-col items-center mb-8 w-full max-w-lg mx-auto">
       <div className="flex items-center w-full relative h-2 mb-2">

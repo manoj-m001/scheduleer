@@ -7,7 +7,7 @@ const TimeSlotSelection = ({ selectedDate, selectedTimezone, onSelectTimezone, o
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const base_url=import.meta.env.VITE_REACT_APP_BACKEND_URL;
   // Fetch slots from backend
   useEffect(() => {
     if (!selectedDate) return;
@@ -17,7 +17,7 @@ const TimeSlotSelection = ({ selectedDate, selectedTimezone, onSelectTimezone, o
     // Convert to ISO string for backend query
     const isoDate = selectedDate.toISOString();
     
-    fetch(`http://localhost:5000/api/slots?date=${encodeURIComponent(isoDate)}`)
+    fetch(`${base_url}/api/slots?date=${encodeURIComponent(isoDate)}`)
       .then(res => res.json())
       .then(data => {
          if (data.slots) {

@@ -9,7 +9,7 @@ import ConfirmationStep from './components/ConfirmationStep';
 
 function App() {
   const [stage, setStage] = useState(STAGES.CALENDAR);
-  
+  const base_url=import.meta.env.VITE_REACT_APP_BACKEND_URL;
   // State for Booking
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimezone, setSelectedTimezone] = useState('+05:30'); // Default to IST/Colombo/Mumbai
@@ -49,7 +49,7 @@ function App() {
       // Send to our backend
       console.log("frontend: starting axios POST request...");
       console.time("Booking API Call");
-      const response = await axios.post('http://localhost:5000/api/book', payload);
+      const response = await axios.post(`${base_url}/api/book`, payload);
       console.timeEnd("Booking API Call");
       console.log("frontend: API request finished, updating state...");
       

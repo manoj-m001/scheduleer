@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 const ConfirmationStep = ({ bookingDetails }) => {
   const { date, time, attendeeName, attendeeEmail, timezoneLabel } = bookingDetails;
   
+
   const formattedDate = date ? format(new Date(date), "d MMMM yyyy") : "";
 
   return (
