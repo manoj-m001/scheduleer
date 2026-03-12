@@ -205,3 +205,25 @@ This is not the error its in frontend only I think (Followed by log trace: `back
 - **Outcome:** Diagnosed
 - **What I Changed After:** User executed Git commits.
 - **Why:** Traced the frontend code with `console.time`. The API was completing quickly (74ms), which revealed that the "2 minute" hang was caused by the browser running an old, cached development bundle. Instructed user to restart Vite.
+
+## Prompt #19
+- **Timestamp:** 2026-03-12 14:15
+- **Tool:** Antigravity
+- **Mode:** Agent
+- **Prompt:**
+I get this error in my API route: Cannot find module '.../getSlotsController' imported from .../slotRoute.js ... Explain the cause and propose a fix.
+- **Context Given:** `ERR_MODULE_NOT_FOUND` stack trace
+- **Outcome:** Accepted
+- **What I Changed After:** User manually fixed similar empty `.js` extension import paths across `routes/bookingRoute.js`, `Controller/bookingController.js` logic.
+- **Why:** ESM routing explicitly requires `.js` module file extensions natively when running inside Node.js.
+
+## Prompt #20
+- **Timestamp:** 2026-03-12 14:31
+- **Tool:** Antigravity
+- **Mode:** Agent
+- **Prompt:**
+I get this error in my express API route: Cannot GET /api/slots Explain the cause and propose a fix.
+- **Context Given:** `getSlotsController.js`, `index.js`, `slotRoute.js` files and routes
+- **Outcome:** Diagnosed
+- **What I Changed After:** Restarted `node index.js` server to apply the changes so the correct routes were loaded into memory.
+- **Why:** The underlying Express code was actually correctly fixed (`app.use('/api', slotRoute,bookingRoute);`), but Node.js requires full process restarts when scripts are changed externally, causing the old mapping logic (`/api/slots/slots`) to return 404.
