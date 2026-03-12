@@ -49,3 +49,5 @@ To run this application on your local machine, you will need to start both the F
    npm run dev
    ```
    *The frontend should now be running. Open the provided Local URL (usually `http://localhost:5173`) in your web browser!*
+
+[Live here](https://climatiq-scheduleer.vercel.app/)
