@@ -2,19 +2,19 @@ import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
 // Create a transporter using credentials from .env
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // Using gmail based on the .env email user
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
 
 /**
  * Send booking confirmation email
  * @param {Object} bookingDetails - Contains all the necessary data for the email
- */
+*/
 export const sendConfirmationEmail = async (bookingDetails) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // Using gmail based on the .env email user
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
   const {
     firstName,
     email,
