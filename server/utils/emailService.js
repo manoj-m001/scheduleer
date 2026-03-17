@@ -7,7 +7,11 @@ import { Resend } from 'resend';
 */
 export const sendConfirmationEmail = async (bookingDetails) => {
   
+
   const resend = new Resend(process.env.RESEND_API);
+
+  const response=resend.domains.create({ name: 'eventschedule.com' });
+  
   const {
     firstName,
     email,
@@ -46,7 +50,7 @@ export const sendConfirmationEmail = async (bookingDetails) => {
 
   try {
     const { data, error } = await resend.emails.send(mailOptions);
-    
+    console.log(response)
     if (error) {
       console.error('Resend API Error:', error);
       throw error;
