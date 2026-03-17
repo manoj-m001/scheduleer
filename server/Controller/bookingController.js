@@ -3,7 +3,7 @@ import { bookingSchema } from "../zodValidation/Validation.js";
 import {z} from "zod";
 import {sendConfirmationEmail} from "../utils/emailService.js";
 
-export const bookslot=async (req, res) => {
+async function bookslot(req, res) {
   try {
     const validatedData = bookingSchema.parse(req.body);
     
@@ -24,8 +24,6 @@ export const bookslot=async (req, res) => {
     }
 
     // 3. Save booking to MongoDB
-    console.log("backend: saving to mongoDB...");
-    console.time("MongoDB Save");
     let meetLink = "https://meet.google.com/rbd-jnpe-ufp"; // Fallback
     const newBooking = new Booking({
       ...validatedData,
@@ -34,7 +32,6 @@ export const bookslot=async (req, res) => {
     });
     
     await newBooking.save();
-    console.timeEnd("MongoDB Save");
     // 4. Format Date for Email
     const meetingDate = new Date(validatedData.date);
     const dateString = meetingDate.toLocaleDateString('en-GB', { 
@@ -67,3 +64,4 @@ export const bookslot=async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   }};
+  export default bookslot;
